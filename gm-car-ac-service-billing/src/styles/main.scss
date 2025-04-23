@@ -1,0 +1,92 @@
+
+/* Gradients and custom animation utilities with Tailwind+Sass */
+
+/* === Color Variables === */
+$primary-gradient: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+$secondary-gradient: linear-gradient(102.3deg, #93278f 5.9%, #eaace8 64%, #f6dbf5 89%);
+$button-gradient: linear-gradient(90deg, #9b87f5 0%, #7e69ab 100%);
+$button-gradient-hover: linear-gradient(90deg, #7e69ab 0%, #9b87f5 100%);
+$card-gradient-hover: linear-gradient(111.4deg, #ee7171 1%, #f6d794 58%);
+
+$custom-radius: 1.25rem;
+
+/* === Card Gradient with animation and hover === */
+.card-gradient-sass {
+  background: $primary-gradient;
+  border-radius: $custom-radius;
+  box-shadow: 0 4px 16px rgba(100, 98, 96, 0.09);
+  border: 1.5px solid #ede7da;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s, background 0.7s;
+  animation: fade-in-card 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @apply transition-shadow duration-200 hover:shadow-2xl cursor-pointer;
+  &:hover {
+    background: $card-gradient-hover;
+    box-shadow: 0 6px 24px rgba(100, 98, 96, 0.13);
+    animation: scale-in 0.3s linear;
+  }
+}
+
+/* === Button Gradient, scale and color transitions === */
+.button-sass {
+  background: $button-gradient;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.5rem 1.5rem;
+  box-shadow: 0 2px 16px 0px #9b87f522;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+
+  @apply shadow-lg relative overflow-hidden hover:scale-105;
+
+  &:hover, &:focus-visible {
+    background: $button-gradient-hover;
+    box-shadow: 0 4px 28px 0px #7e69ab55;
+    animation: pulse 0.8s;
+    outline:none;
+    /* subtle shine animation */
+    &::after {
+      content: "";
+      position: absolute;
+      left: -120%;
+      top: 0;
+      width: 150%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 0%, #fff8 80%, transparent 100%);
+      transform: skewX(-20deg);
+      animation: shine 0.8s;
+    }
+  }
+}
+
+/* === Animations === */
+@keyframes fade-in-card {
+  0% { opacity: 0; transform: translateY(15px) scale(0.98);}
+  85% { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0) scale(1);}
+}
+@keyframes scale-in {
+  0% { transform: scale(0.98);}
+  100% { transform: scale(1);}
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 #9b87f544;}
+  75% { box-shadow: 0 0 0 10px #7e69ab22;}
+  100% { box-shadow: 0 0 0 0 #9b87f511;}
+}
+@keyframes shine {
+  0% { left: -120%; }
+  60% { left: 120%;}
+  100% { left: 120%;}
+}
+
+/* === Section Header Gradient Text === */
+.header-gradient-text {
+  background: linear-gradient(90deg, #9b87f5 0%, #ee7171 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  @apply font-bold;
+}
